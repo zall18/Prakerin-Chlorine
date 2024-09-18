@@ -13,6 +13,12 @@
         android:theme="@style/Theme.PrakerinChlorine"
         tools:targetApi="31">
         <activity
+            android:name=".HistoryAbsenceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditPofileActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

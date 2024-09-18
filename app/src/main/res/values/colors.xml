@@ -11,8 +11,14 @@
     <color name="blue_kehadiran">#33257CFF</color>
     <color name="red_utama">#33FF0000</color>
     <color name="red">#FF0000</color>
+    <color name="red_history">#FFDADA</color>
     <color name="green_utama">#3337FF00</color>
     <color name="orange_utama">#33FF7700</color>
     <color name="gray_utama">#33000000</color>
+    <color name="green">#00D715</color>
+    <color name="green_history">#B9FFC0</color>
+    <color name="yellow">#FFE500</color>
+    <color name="yellow_history">#FFFCDF</color>
+
 
 </resources>

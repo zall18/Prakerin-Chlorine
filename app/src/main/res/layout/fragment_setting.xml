@@ -83,7 +83,7 @@
 
                     <com.google.android.material.imageview.ShapeableImageView
                         android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_height="wrap_content"
                         android:scaleType="centerCrop"
                         android:src="@drawable/baseline_person_24"
                         app:shapeAppearanceOverlay="@style/circle_image" />
