@@ -1,5 +1,7 @@
 package com.example.prakerin_chlorine
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
@@ -7,11 +9,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.prakerin_chlorine.views.HomeFragment
 import com.example.prakerin_chlorine.views.PresentFragment
 import com.example.prakerin_chlorine.views.SettingFragment
 import com.example.prakerin_chlorine.views.TaskFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
     private val fragmentManger = supportFragmentManager
@@ -20,11 +24,8 @@ class HomeActivity : AppCompatActivity() {
     private val settingFragment = SettingFragment()
     private val taskFragment = TaskFragment()
 
-    private lateinit var btnH : ImageButton
-    private lateinit var btnP : ImageButton
-    private lateinit var btnS : ImageButton
-    private lateinit var btnT : ImageButton
-    private lateinit var manger : FragmentTransaction
+    lateinit var bottomNav: BottomNavigationView
+    lateinit var session: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,16 +33,46 @@ class HomeActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_home)
 
-        btnH = findViewById(R.id.home)
-        btnP = findViewById(R.id.presentButton)
-        btnS = findViewById(R.id.settingButton)
-        btnT = findViewById(R.id.testButton)
-        /**set First Fragment*/
-        manger = fragmentManger.beginTransaction()
-            .replace(R.id.myView,homeFragment)
-        manger.commit()
-        btnH.setImageResource(R.drawable.baseline_home_filled_24_white)
+        session = getSharedPreferences("session", Context.MODE_PRIVATE)
+        var index = intent.getIntExtra("index", 0)
 
+        bottomNav = findViewById(R.id.bottomNav)
+        bottomNav.setOnApplyWindowInsetsListener(null);
+        bottomNav.setOnItemSelectedListener {
+                item ->
+            when(item.itemId){
+                R.id.home -> {
+                    replaceFragment(homeFragment)
+                    true
+                }
+                R.id.present -> {
+                    replaceFragment(presentFragment)
+                    true
+                }
+                R.id.task -> {
+                    replaceFragment(taskFragment)
+                    true
+                }
+                R.id.setting -> {
+                    replaceFragment(settingFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+        if (index == 0)
+        {
+            replaceFragment(homeFragment)
+        }else if(index == 1)
+        {
+            replaceFragment(presentFragment)
+            bottomNav.menu.findItem(R.id.present).isChecked = true
+        }else if(index == 2){
+            replaceFragment(taskFragment)
+            bottomNav.menu.findItem(R.id.task).isChecked = true
+        }else if(index == 3){
+            bottomNav.menu.findItem(R.id.setting).isChecked = true
+        }
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.myView)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -49,43 +80,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    fun addFragOnClick(view: View) {
-        /**set replace fragment*/
-        manger = fragmentManger.beginTransaction()
-        when(view){
-            btnH -> {
-                manger.replace(R.id.myView,homeFragment)
-                    .commit()
-                btnH.setImageResource(R.drawable.baseline_home_filled_24_white)
-                btnP.setImageResource(R.drawable.baseline_fingerprint_24)
-                btnS.setImageResource(R.drawable.baseline_settings_24)
-                btnT.setImageResource(R.drawable.baseline_table_rows_24)
-
-            }
-            btnP -> {
-                manger.replace(R.id.myView,presentFragment)
-                    .commit()
-                btnH.setImageResource(R.drawable.baseline_home_filled_24)
-                btnP.setImageResource(R.drawable.baseline_fingerprint_24_white)
-                btnS.setImageResource(R.drawable.baseline_settings_24)
-                btnT.setImageResource(R.drawable.baseline_table_rows_24)
-            }
-            btnS -> {
-                manger.replace(R.id.myView,settingFragment)
-                    .commit()
-                btnH.setImageResource(R.drawable.baseline_home_filled_24)
-                btnP.setImageResource(R.drawable.baseline_fingerprint_24)
-                btnS.setImageResource(R.drawable.baseline_settings_24_white)
-                btnT.setImageResource(R.drawable.baseline_table_rows_24)
-            }
-            btnT -> {
-                manger.replace(R.id.myView,taskFragment)
-                    .commit()
-                btnH.setImageResource(R.drawable.baseline_home_filled_24)
-                btnP.setImageResource(R.drawable.baseline_fingerprint_24)
-                btnS.setImageResource(R.drawable.baseline_settings_24)
-                btnT.setImageResource(R.drawable.baseline_table_rows_24_white)
-            }
-        }
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
     }
 }

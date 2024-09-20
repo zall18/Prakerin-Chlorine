@@ -18,7 +18,7 @@
             android:layout_height="200dp"
             android:orientation="vertical"
             android:background="@drawable/rounded_corner_banner"
-            android:backgroundTint="@color/purple"
+            android:backgroundTint="@color/main_blue"
             android:gravity="center"
             >
 
@@ -36,7 +36,7 @@
                 android:hint="Change Image"
                 android:textColorHint="@color/white"
                 android:background="@drawable/rounded_corner"
-                android:backgroundTint="@color/purple2"
+                android:backgroundTint="@color/main_dark_blue"
                 android:layout_marginTop="20dp"
                 android:id="@+id/change_image_button"
                 />
@@ -192,9 +192,9 @@
                         android:hint="Login"
                         android:textColorHint="@color/white"
                         android:background="@drawable/rounded_corner"
-                        android:backgroundTint="@color/purple2"
+                        android:backgroundTint="@color/main_dark_blue"
                         android:layout_marginTop="20dp"
-                        android:id="@+id/login_button"
+                        android:id="@+id/finish_edit_button"
                         />
                 </LinearLayout>
             </ScrollView>

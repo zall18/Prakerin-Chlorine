@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_filled_24_white"
+        />
+
+    <item
+        android:id="@+id/present"
+        android:title="Kehadiran"
+        android:icon="@drawable/baseline_fingerprint_24_white"
+        />
+
+    <item
+        android:id="@+id/task"
+        android:title="Kegiatan"
+        android:icon="@drawable/baseline_table_rows_24_white"
+        />
+
+    <item
+        android:id="@+id/setting"
+        android:title="Pengaturan"
+        android:icon="@drawable/baseline_settings_24_white"
+        />
+
+</menu>
