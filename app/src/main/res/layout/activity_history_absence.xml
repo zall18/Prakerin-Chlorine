@@ -129,9 +129,35 @@
                     android:background="@drawable/rounded_right"
                     android:backgroundTint="@color/green_history"
                     android:layout_marginLeft="40dp"
+                    android:gravity="center"
                     >
 
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_marginHorizontal="12dp"
+                        android:orientation="vertical">
 
+                        <TextView
+                            android:id="@+id/date_history"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 january 0000"
+                            android:textColor="@color/black"
+                            android:textSize="16dp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/status_history_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Selesai"
+                        android:textColor="@color/green"
+                        android:textSize="16dp"
+                        android:layout_marginRight="12dp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
