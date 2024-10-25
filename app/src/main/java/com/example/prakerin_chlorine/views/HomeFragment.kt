@@ -1,33 +1,35 @@
 package com.example.prakerin_chlorine.views
 
+import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
+import com.example.prakerin_chlorine.HomeActivity
 import com.example.prakerin_chlorine.R
+import com.example.prakerin_chlorine.Response.HomeResponse
+import com.example.prakerin_chlorine.Response.Task
+import com.example.prakerin_chlorine.RetrofitClient
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    lateinit var session : SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -38,23 +40,43 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        session = requireContext().getSharedPreferences("session", Context.MODE_PRIVATE)
+        var token = session.getString("token", "")
+
+        var hadir = view.findViewById<TextView>(R.id.total_hadir)
+        var alfa = view.findViewById<TextView>(R.id.total_alfa)
+        var izin = view.findViewById<TextView>(R.id.total_izin)
+        var ts = view.findViewById<TextView>(R.id.total_tugas_selesai)
+        var name = view.findViewById<TextView>(R.id.name_home)
+        var school = view.findViewById<TextView>(R.id.school_home)
+
+        RetrofitClient.instance.home("Bearer $token").enqueue(object : Callback<HomeResponse>{
+            override fun onResponse(call: Call<HomeResponse>, response: Response<HomeResponse>) {
+                var data = response.body()
+                if (response.isSuccessful)
+                {
+                    Log.d("Home Response", "onResponse: $data")
+                    hadir.text = data?.data?.total_hadir.toString()
+                    alfa.text = data?.data?.total_alfa.toString()
+                    izin.text = data?.data?.total_izin.toString()
+                    ts.text = data?.data?.total_tugas_selesai.toString()
+                    name.text = data?.data?.data_user?.full_name
+                    school.text = data?.data?.data_user?.nisn
                 }
             }
+
+            override fun onFailure(call: Call<HomeResponse>, t: Throwable) {
+                t.printStackTrace()
+            }
+        })
+
+        var taskButton: AppCompatButton = view.findViewById(R.id.task_button)
+        taskButton.setOnClickListener {
+            var intent = Intent(requireContext(), HomeActivity::class.java)
+            intent.putExtra("index", 2)
+            startActivity(intent)
+        }
     }
+
 }
