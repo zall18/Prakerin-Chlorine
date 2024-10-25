@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="purple">#ECD6FD</color>
+    <color name="purple2">#AD66E5</color>
+    <color name="darkPurple">#470B77</color>
+    <color name="gray">#F4F4F4</color>
+    <color name="darkgray">#656565</color>
+    <color name="darkblue">#2F318A</color>
+    <color name="blue">#257CFF</color>
+    <color name="blue_kehadiran">#33257CFF</color>
+    <color name="red_utama">#33FF0000</color>
+    <color name="red">#FF0000</color>
+    <color name="red_history">#FFDADA</color>
+    <color name="green_utama">#3337FF00</color>
+    <color name="orange_utama">#33FF7700</color>
+    <color name="gray_utama">#33000000</color>
+    <color name="green">#00D715</color>
+    <color name="green_history">#B9FFC0</color>
+    <color name="yellow">#FFE500</color>
+    <color name="yellow_history">#FFFCDF</color>
+    <color name="main_blue">#6DA5C0</color>
+    <color name="main_dark_blue">#294D61</color>
+
+
+
+</resources>
